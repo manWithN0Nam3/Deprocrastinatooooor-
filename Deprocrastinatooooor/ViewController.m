@@ -19,11 +19,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.editing = true;
     self.textFieldArray = [NSMutableArray new];
     self.textField.delegate = self;
 
 }
 
+- (IBAction)onEditButtonPressed:(UIBarButtonItem *)sender{
+    if (self.editing == true) {
+        self.editing = false;
+        [self.tableView setEditing:false animated:true];
+        sender.style = UIBarButtonItemStylePlain;
+        sender.title =@"Edit";
+    } else {
+        self.editing = true;
+        [self.tableView setEditing:true animated:true];
+        sender.style = UIBarButtonItemStyleDone;
+        sender.title =@"Done";
+            }
+}
 
 - (IBAction)addTextButton:(id)sender {
     [self.textFieldArray addObject:self.textField.text];
