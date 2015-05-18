@@ -49,6 +49,10 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="tQM-2v-tmt" appends="YES" id="dZn-mQ-8gf"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" id="rhA-Nd-tj7">
                         <barButtonItem key="rightBarButtonItem" title="edit" id="NKb-H7-Lhy">
@@ -63,6 +67,12 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="tQM-2v-tmt">
+                    <connections>
+                        <action selector="onSwipeGesture:" destination="vXZ-lx-hvc" id="NxB-DU-pNs"/>
+                        <outlet property="delegate" destination="vXZ-lx-hvc" id="qF5-2j-Hpn"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="649" y="641"/>
         </scene>

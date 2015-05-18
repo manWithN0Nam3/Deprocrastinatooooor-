@@ -14,6 +14,7 @@
 @property NSMutableArray *textFieldArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property NSString *string;
+@property UITableViewCell *cell;
 
 @end
 
@@ -35,6 +36,8 @@
     [self.textFieldArray insertObject:cellString atIndex:destinationIndexPath.row];
 
 }
+
+
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
 
@@ -59,6 +62,29 @@
     [self presentViewController:alertController animated:YES completion:nil];
 
 
+
+}
+- (IBAction)onSwipeGesture:(UISwipeGestureRecognizer *)sender {
+
+    if (sender.state == UIGestureRecognizerStateEnded) {
+        CGPoint pointer = [sender locationInView:self.tableView];
+        NSIndexPath *path = [self.tableView indexPathForRowAtPoint:pointer];
+        UITableViewCell *theCell = [self.tableView cellForRowAtIndexPath:path];
+
+        if (theCell.textLabel.textColor == [UIColor blackColor]) {
+            theCell.textLabel.textColor = [UIColor greenColor];
+        }
+
+        else if (theCell.textLabel.textColor == [UIColor greenColor]) {
+            theCell.textLabel.textColor = [UIColor yellowColor];
+        }
+        else if (theCell.textLabel.textColor == [UIColor yellowColor]) {
+            theCell.textLabel.textColor = [UIColor redColor];
+        }
+//        self.cell.textLabel.textColor = [UIColor redColor];
+
+
+    }
 
 }
 -(void)alertView{
@@ -129,13 +155,21 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
+  self.cell= [tableView dequeueReusableCellWithIdentifier:@"cellID"];
 
-    cell.textLabel.text = [self.textFieldArray objectAtIndex:indexPath.row];
-
-    return cell;
+    self.cell.textLabel.text = [self.textFieldArray objectAtIndex:indexPath.row];
 
 
+    return self.cell;
+
+
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    self.cell.textLabel.textColor = [UIColor greenColor];
+    
+    
 }
 
 @end
