@@ -8,11 +8,12 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITableViewDelegate>
+@interface ViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITableViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property NSMutableArray *textFieldArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property NSString *string;
 
 @end
 
@@ -30,11 +31,57 @@
 -(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
     NSString *cellString = [self.textFieldArray objectAtIndex:sourceIndexPath.row];
 
+    [self.textFieldArray removeObject:cellString];
+    [self.textFieldArray insertObject:cellString atIndex:destinationIndexPath.row];
+
 }
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    [self.textFieldArray removeObjectAtIndex:indexPath.row];
-    [self.tableView reloadData];
+
+
+
+
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"Enter New Dream" message:nil preferredStyle:UIAlertControllerStyleAlert];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil];
+
+
+    UIAlertAction *delete = [UIAlertAction actionWithTitle:@"delete" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action) {
+
+        [self.textFieldArray removeObjectAtIndex:indexPath.row];
+        [self.tableView reloadData];
+    }];
+
+
+
+    [alertController addAction:cancelAction];
+    [alertController addAction:delete];
+    [self presentViewController:alertController animated:YES completion:nil];
+
+
+
+}
+-(void)alertView{
+
+
+//    UIAlertView *alertView = [UIAlertView new];
+//    alertView.delegate = self;
+//    alertView.title = @"are u sure u want to delete?";
+////    [alertView addButtonWithTitle:@"cancel"];
+////    [alertView addButtonWithTitle:@"delete"];
+////    [alertView show];
+
+
+}
+
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        NSLog(@"test");
+
+
+    }
+
+
 }
 - (IBAction)onEdit:(UIBarButtonItem *)sender {
 
@@ -50,23 +97,7 @@
         sender.title =@"Done";}
 
 }
-- (IBAction)onEditButton:(UIBarButtonItem *)sender {
-//    if (self.editing) {
-//        self.editing = false;
-//        [self.tableView setEditing:false animated:true];
-//        sender.style = UIBarButtonItemStylePlain;
-//        sender.title =@"Edit";
-//    } else {
-//        self.editing = true;
-//        [self.tableView setEditing:true animated:true];
-//        sender.style = UIBarButtonItemStyleDone;
-//        sender.title =@"Done";}
 
-}
-
-//- (IBAction)onEditButtonPressed:(UIBarButtonItem *)sender{
-//                }
-//}
 
 - (IBAction)addTextButton:(id)sender {
     [self.textFieldArray addObject:self.textField.text];
@@ -79,7 +110,7 @@
 
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-//    [textField endEditing:YES];
+    [textField endEditing:YES];
     return YES;
 
 }
