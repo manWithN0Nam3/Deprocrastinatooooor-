@@ -8,7 +8,8 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@interface ViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate, UITableViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UITextField *textField;
 @property NSMutableArray *textFieldArray;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -19,10 +20,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.delegate = self;
     self.editing = false;
     self.textFieldArray = [NSMutableArray new];
     self.textField.delegate = self;
 
+}
+
+-(void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath {
+    NSString *cellString = [self.textFieldArray objectAtIndex:sourceIndexPath.row];
+
+}
+
+-(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self.textFieldArray removeObjectAtIndex:indexPath.row];
+    [self.tableView reloadData];
 }
 - (IBAction)onEdit:(UIBarButtonItem *)sender {
 
