@@ -51,16 +51,9 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="rhA-Nd-tj7">
-                        <barButtonItem key="rightBarButtonItem" style="plain" id="ZTO-OC-rVW">
-                            <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="trQ-IY-nCb">
-                                <rect key="frame" x="-23" y="-15" width="71" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Edit">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                            </button>
+                        <barButtonItem key="rightBarButtonItem" title="edit" id="NKb-H7-Lhy">
                             <connections>
-                                <action selector="onEditButtonPressed:" destination="vXZ-lx-hvc" id="rLE-nC-uut"/>
+                                <action selector="onEdit:" destination="vXZ-lx-hvc" id="Hx8-fP-Itt"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
