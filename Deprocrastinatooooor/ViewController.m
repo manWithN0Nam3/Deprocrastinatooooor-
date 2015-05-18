@@ -8,7 +8,10 @@
 
 #import "ViewController.h"
 
-@interface ViewController ()
+@interface ViewController ()<UITableViewDataSource, UITableViewDelegate, UITextFieldDelegate>
+@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property NSMutableArray *textFieldArray;
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
 
 @end
 
@@ -16,12 +19,49 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
+    self.textFieldArray = [NSMutableArray new];
+    self.textField.delegate = self;
+
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+- (IBAction)addTextButton:(id)sender {
+    [self.textFieldArray addObject:self.textField.text];
+
+    [self.tableView reloadData];
+
+    self.textField.text = @"";
+    [self.textField endEditing:YES];
+
+
+}
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+//    [textField endEditing:YES];
+    return YES;
+
+}
+
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    [self.textField endEditing:YES];
+}
+
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.textFieldArray.count;
+
+
+
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
+
+    cell.textLabel.text = [self.textFieldArray objectAtIndex:indexPath.row];
+
+    return cell;
+
+
 }
 
 @end
